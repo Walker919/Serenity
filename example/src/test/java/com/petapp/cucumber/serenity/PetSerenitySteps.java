@@ -8,6 +8,7 @@ import io.restassured.response.ValidatableResponse;
 import net.serenitybdd.rest.SerenityRest;
 import net.thucydides.core.annotations.Step;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -24,6 +25,25 @@ public class PetSerenitySteps {
         pet.setName(name);
         pet.setStatus(status);
         pet.setPhotoUrls(photoUrl);
+
+        return SerenityRest.given()
+                .spec(ReusableSpecification.getGenericRequestSpec())
+                .when()
+                .body(pet)
+                .post("/pet")
+                .then();
+    }
+
+    public ValidatableResponse createPet(String id, String categoryId, String categoryName, String tagId,
+                                         String tagName, String photoUrls, String name, String status) {
+
+        PetClass pet = new PetClass();
+        pet.setId(Integer.valueOf(id));
+        pet.setCategory(new Category(Integer.valueOf(categoryId), categoryName));
+        pet.setTags(Arrays.asList(new Tag(Integer.valueOf(tagId), tagName)));
+        pet.setName(name);
+        pet.setStatus(status);
+        pet.setPhotoUrls(Arrays.asList(photoUrls));
 
         return SerenityRest.given()
                 .spec(ReusableSpecification.getGenericRequestSpec())
@@ -65,6 +85,25 @@ public class PetSerenitySteps {
                 .when()
                 .body(pet)
                 .post("/pet")
+                .then();
+    }
+
+    public ValidatableResponse updatePet(String id, String categoryId, String categoryName, String tagId,
+                                         String tagName, String photoUrls, String name, String status) {
+
+        PetClass pet = new PetClass();
+        pet.setId(Integer.valueOf(id));
+        pet.setCategory(new Category(Integer.valueOf(categoryId), categoryName));
+        pet.setTags(Arrays.asList(new Tag(Integer.valueOf(tagId), tagName)));
+        pet.setName(name);
+        pet.setStatus(status);
+        pet.setPhotoUrls(Arrays.asList(photoUrls));
+
+        return SerenityRest.given()
+                .spec(ReusableSpecification.getGenericRequestSpec())
+                .when()
+                .body(pet)
+                .put("/pet")
                 .then();
     }
 
