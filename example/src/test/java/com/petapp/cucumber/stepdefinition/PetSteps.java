@@ -1,4 +1,4 @@
-package com.petapp.cucumber.steps;
+package com.petapp.cucumber.stepdefinition;
 
 import com.petapp.cucumber.serenity.PetSerenitySteps;
 import com.petapp.utils.ReusableSpecification;
